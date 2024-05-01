@@ -1,23 +1,34 @@
-const container = document.querySelector("#container")
+const container = document.querySelector("#container");
+const rgbPen = document.querySelector("#rgbPen");
+const blackPen = document.querySelector("#blackPen");
+// RGB hover effect when button clicked
+rgbPen.addEventListener("click", () => rgbHover());
+// black hover effect
+blackPen.addEventListener("click", () => blackHover());
 // Creating 16 x 16 grid
-for (let i = 0; i < 16; i++) {
+createGrid(16);
+function createGrid(size) {
+for (let i = 0; i < size; i++) {
     const row = document.createElement("div")
     row.classList.add("row")
     container.appendChild(row);
-    for (let j = 0; j < 16; j++) {
+    for (let j = 0; j < size; j++) {
         const col = document.createElement("div");
         col.classList.add("col");
         row.appendChild(col);
     }
 }
-// Hovering effect
+}
+// Black hover function
+blackHover();
+function blackHover() {
 const grid = document.querySelectorAll(".row, .col")
 grid.forEach((div) => {
     div.addEventListener("mouseenter", () => {
-        // We can add class instead here
         div.style.backgroundColor = "black";
     })
 })
+}
 
 const btn = document.querySelector("#btn");
 btn.addEventListener("click", () => {
@@ -28,30 +39,23 @@ btn.addEventListener("click", () => {
     }
     // remove each previous div
     while (container.firstChild) container.removeChild(container.firstChild);
-    // Create new grid
-    for (let i = 0; i < newSize; i++) {
-        const row = document.createElement("div")
-        row.classList.add("row")
-        container.appendChild(row);
-        for (let j = 0; j < newSize; j++) {
-            const col = document.createElement("div");
-            col.classList.add("col");
-            row.appendChild(col);
-        }
-    }
+    createGrid(newSize);
     // add hovering effect in new grid
-    const grid = document.querySelectorAll(".row, .col")
-    grid.forEach((div) => {
-    div.addEventListener("mouseenter", () => {
-        // get random color instead of just black
-        div.style.backgroundColor = 'black';
-        })
-    })
+    blackHover();
 })
 // function to get random color instead of just black
 function getRandomColor() {
-    var r = Math.floor(Math.random() * 256); 
-    var g = Math.floor(Math.random() * 256); 
-    var b = Math.floor(Math.random() * 256); 
+    let r = Math.floor(Math.random() * 256); 
+    let g = Math.floor(Math.random() * 256); 
+    let b = Math.floor(Math.random() * 256); 
     return 'rgb(' + r + ', ' + g + ', ' + b + ')';
   }
+// RGB hover function
+function rgbHover() {
+    const grid = document.querySelectorAll(".row, .col")
+    grid.forEach((div) => {
+        div.addEventListener("mouseenter", () => {
+        div.style.backgroundColor = getRandomColor();
+        })
+    })
+}
