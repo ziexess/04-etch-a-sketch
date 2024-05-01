@@ -29,7 +29,7 @@ grid.forEach((div) => {
     })
 })
 }
-
+// New size function
 const btn = document.querySelector("#btn");
 btn.addEventListener("click", () => {
     let newSize = prompt("Enter the new size of the grid")
