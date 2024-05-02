@@ -28,6 +28,7 @@ function blackHover() {
 const grid = document.querySelectorAll(".col")
 grid.forEach((div) => {
     div.addEventListener("mouseenter", () => {
+        div.style.opacity = 1;
         div.style.backgroundColor = "black";
     })
 })
@@ -58,6 +59,7 @@ function rgbHover() {
     const grid = document.querySelectorAll(".col")
     grid.forEach((div) => {
         div.addEventListener("mouseenter", () => {
+        div.style.opacity = 1;
         div.style.backgroundColor = getRandomColor();
         })
     })
@@ -68,10 +70,11 @@ function brush() {
     const grid = document.querySelectorAll(".col")
     grid.forEach((div) => {
         div.addEventListener("mouseenter", (e) => { 
-            div.style.backgroundColor = "black"
+            div.style.opacity = 0;
+            div.style.backgroundColor = "black";
             let opacityValue = e.target.style.opacity;
-            if (opacityValue === "") {
-                e.target.style.opacity = "0";
+            if (opacityValue === 0) {
+                e.target.style.opacity = "0.1";
                 } else if (opacityValue < 1) {
                 opacityValue = Number(opacityValue) + 0.1;
                 e.target.style.opacity = opacityValue.toString();
