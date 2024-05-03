@@ -6,6 +6,8 @@ const brushEffect = document.querySelector("#brush")
 rgbPen.addEventListener("click", () => rgbHover());
 // black hover effect
 blackPen.addEventListener("click", () => blackHover());
+// brush effect
+brushEffect.addEventListener("click", () => brush());
 // Creating 16 x 16 grid
 createGrid(16);
 function createGrid(size) {
@@ -25,8 +27,12 @@ blackHover();
 function blackHover() {
 const grid = document.querySelectorAll(".col")
 grid.forEach((div) => {
-    div.addEventListener("mouseenter", () => {
-        div.style.backgroundColor = "black";
+    div.addEventListener("mouseenter", (e) => {
+        e.target.style.backgroundColor = "black";
+        // adjusting opacity in case it was changed by brush function
+        if (Number(window.getComputedStyle(e.target).opacity) < 1) {
+            e.target.style.opacity = "1"
+        }
     })
 })
 }
@@ -55,8 +61,29 @@ function getRandomColor() {
 function rgbHover() {
     const grid = document.querySelectorAll(".col")
     grid.forEach((div) => {
-        div.addEventListener("mouseenter", () => {
-        div.style.backgroundColor = getRandomColor();
+        div.addEventListener("mouseenter", (e) => {
+        e.target.style.backgroundColor = getRandomColor();
+        // adjusting opacity in case it was changed by brush function
+        if (Number(window.getComputedStyle(e.target).opacity) < 1) {
+            e.target.style.opacity = "1"
+        }
         })
+    })
+}
+// Brush hover function
+function brush() {
+    const grid = document.querySelectorAll(".col")
+    grid.forEach((div) => {
+        div.addEventListener("mouseenter", (e) => {
+        e.target.style.backgroundColor = "black";
+        // adjusting opacity
+        if (Number(window.getComputedStyle(e.target).opacity) === 1) {
+            e.target.style.opacity = "0.1"
+        }
+         else { let opacityValue = Number(window.getComputedStyle(e.target).opacity);
+        opacityValue = opacityValue + 0.1;
+        e.target.style.opacity = opacityValue.toString();
+        }
+    })
     })
 }
