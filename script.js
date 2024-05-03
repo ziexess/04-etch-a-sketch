@@ -74,14 +74,19 @@ function rgbHover() {
 function brush() {
     const grid = document.querySelectorAll(".col")
     grid.forEach((div) => {
-        div.addEventListener("mouseenter", (e) => {
+        // https://stackoverflow.com/questions/9251837/how-to-remove-all-listeners-in-an-element
+        var new_element = div.cloneNode(true);
+        div.parentNode.replaceChild(new_element, div);
+        new_element.addEventListener("mouseenter", (e) => {
+        let opacityValue = e.target.style.opacity;
         e.target.style.backgroundColor = "black";
         // adjusting opacity
-        if (Number(window.getComputedStyle(e.target).opacity) === 1) {
+        if (+opacityValue > 1) { return}
+        if (opacityValue === "") {
             e.target.style.opacity = "0.1"
         }
-         else { let opacityValue = Number(window.getComputedStyle(e.target).opacity);
-        opacityValue = opacityValue + 0.1;
+         else { 
+        opacityValue = +opacityValue + 0.1;
         e.target.style.opacity = opacityValue.toString();
         }
     })
