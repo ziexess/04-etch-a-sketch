@@ -6,8 +6,6 @@ const brushEffect = document.querySelector("#brush")
 rgbPen.addEventListener("click", () => rgbHover());
 // black hover effect
 blackPen.addEventListener("click", () => blackHover());
-// brush hover effect
-brushEffect.addEventListener("click", () => brush());
 // Creating 16 x 16 grid
 createGrid(16);
 function createGrid(size) {
@@ -28,7 +26,6 @@ function blackHover() {
 const grid = document.querySelectorAll(".col")
 grid.forEach((div) => {
     div.addEventListener("mouseenter", () => {
-        div.style.opacity = 1;
         div.style.backgroundColor = "black";
     })
 })
@@ -59,26 +56,7 @@ function rgbHover() {
     const grid = document.querySelectorAll(".col")
     grid.forEach((div) => {
         div.addEventListener("mouseenter", () => {
-        div.style.opacity = 1;
         div.style.backgroundColor = getRandomColor();
-        })
-    })
-}
-
-// brush function
-function brush() {
-    const grid = document.querySelectorAll(".col")
-    grid.forEach((div) => {
-        div.addEventListener("mouseenter", (e) => { 
-            div.style.opacity = 0;
-            div.style.backgroundColor = "black";
-            let opacityValue = e.target.style.opacity;
-            if (opacityValue === 0) {
-                e.target.style.opacity = "0.1";
-                } else if (opacityValue < 1) {
-                opacityValue = Number(opacityValue) + 0.1;
-                e.target.style.opacity = opacityValue.toString();
-                }
         })
     })
 }
